@@ -4,7 +4,7 @@ import math
 
 from src.function import Function
 from src.curve import Curve, Node
-from src.representation import curve_simple, curve_derivate
+from src.representation import curve_simple, curve_optimisation
 
 
 def display_curve_comparaison(ax: plt.Axes, name: str, raw_function: Function, curve: Curve):
@@ -25,7 +25,7 @@ def display_iter(ax: plt.Axes, raw_function: Function, N: int):
     LAMBDA = []
     ERROR = []
     for lamda in np.linspace(0, 1, 100):
-        curve = curve_derivate(raw_function, N, lamda, 1)
+        curve = curve_optimisation(raw_function, N, lamda, 1)
         func = curve.get_function()
         error = (func - raw_function).abs().integrate()[0]
         LAMBDA.append(lamda)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     
     l = display_iter(axs[2], func, N)
 
-    display_curve_comparaison(axs[0], 'derivate', func, curve_derivate(func, N, l, 1))
+    display_curve_comparaison(axs[0], 'derivate', func, curve_optimisation(func, N, l, 1))
 
     display_curve_comparaison(axs[1], 'simple', func, curve_simple(func, N))
 
